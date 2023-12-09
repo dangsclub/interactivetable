@@ -49,23 +49,37 @@
 
       // 2열부터의 셀인지 확인
       if (cell.cellIndex >= 2) {
-        // 카메라 촬영 또는 사진 이미지 선택
-        var options = {
-          title: "사진 선택",
-          cameraButtonTitle: "카메라 촬영",
-          galleryButtonTitle: "갤러리에서 선택",
-        };
-        var chooseImage = cordova.plugins.file.chooseImage(options);
-        chooseImage.then(function(result) {
-          // 결과 처리
-          if (result.success) {
+        // 1회 터치
+        if (event.detail === 1) {
+          // 텍스트 입력
+          cell.textContent = "";
+          cell.focus();
+        }
+
+        // 2회 연속 터치
+        else if (event.detail === 2) {
+          // 카메라 또는 사진앨범 연결
+          // HTML5 File API 사용
+          var input = document.createElement("input");
+          input.type = "file";
+          input.accept = "image/*";
+          input.onchange = function() {
             // 이미지를 표에 삽입
             cell.innerHTML = "";
-            cell.appendChild(document.createElement("img").src = result.data);
-          } else {
-            // 실패 처리
+            cell.appendChild(document.createElement("img").src = input.files[0].url);
+          };
+          input.click();
+        }
+
+        // 마지막 칸을 3번 연속 터치하면 새로운 행이 추가됨
+        if (cell.cellIndex === 4 && event.detail === 3) {
+          // 새로운 행 추가
+          var newRow = document.querySelector("table").insertRow();
+          for (var i = 0; i < newRow.cells.length; i++) {
+            var newCell = newRow.cells[i];
+            newCell.textContent = "";
           }
-        });
+        }
       }
     }
 
