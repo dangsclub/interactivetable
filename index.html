@@ -41,6 +41,40 @@
 
     // 화면 방향 변경 감지
     window.addEventListener("orientationchange", onOrientationChanged);
+
+    // 각 셀의 클릭 이벤트 핸들러
+    function onCellClick(event) {
+      // 클릭한 셀을 가져오기
+      var cell = event.target;
+
+      // 2열부터의 셀인지 확인
+      if (cell.cellIndex >= 2) {
+        // 카메라 촬영 또는 사진 이미지 선택
+        var options = {
+          title: "사진 선택",
+          cameraButtonTitle: "카메라 촬영",
+          galleryButtonTitle: "갤러리에서 선택",
+        };
+        var chooseImage = cordova.plugins.file.chooseImage(options);
+        chooseImage.then(function(result) {
+          // 결과 처리
+          if (result.success) {
+            // 이미지를 표에 삽입
+            cell.innerHTML = "";
+            cell.appendChild(document.createElement("img").src = result.data);
+          } else {
+            // 실패 처리
+          }
+        });
+      }
+    }
+
+    // 각 셀에 이벤트 리스너 추가
+    var table = document.querySelector("table");
+    for (var i = 2; i < table.rows[0].cells.length; i++) {
+      var cell = table.rows[0].cells[i];
+      cell.addEventListener("click", onCellClick);
+    }
   </script>
 </body>
 </html>
