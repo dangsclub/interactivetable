@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>현장 사진 입력</title>
+</head>
+<body>
+  <table border="1" bordercolor="black" width="100%">
+    <caption>현장 사진 입력</caption>
+    <tr>
+      <th>도면기호</th>
+      <th>시공전</th>
+      <th>시공후</th>
+      <th>현장모습</th>
+      <th>현장명</th>
+    </tr>
+    <tr>
+      <td>A-1</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <script>
+    // 화면 방향 변경 이벤트 핸들러
+    function onOrientationChanged() {
+      // 화면 방향을 가져오기
+      var orientation = window.orientation;
+
+      // 화면 방향에 따라 표 크기 조정
+      if (orientation == 0 || orientation == 180) {
+        // 세로 모드
+        document.querySelector("table").style.width = "100%";
+      } else {
+        // 가로 모드
+        document.querySelector("table").style.width = "100vw";
+      }
+    }
+
+    // 화면 방향 변경 감지
+    window.addEventListener("orientationchange", onOrientationChanged);
+  </script>
+</body>
+</html>
