@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>현장 사진 입력</title>
+  <link href="css/layout.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src = "js/script.js" ></script>
 </head>
 <body>
-  <table border="1" bordercolor="black" width="100%">
+  <table >
+   <thead>
     <caption>현장 사진 입력</caption>
     <tr>
       <th>도면기호</th>
@@ -13,82 +16,17 @@
       <th>시공후</th>
       <th>현장모습</th>
       <th>현장명</th>
-    </tr>
+    </tr></thead>
+    <tbody>
     <tr>
       <td>A-1</td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
-    </tr>
+    </tr></tbody>
+    <tfoot></tfoot>
   </table>
 
-  <script>
-    // 화면 방향 변경 이벤트 핸들러
-    function onOrientationChanged() {
-      // 화면 방향을 가져오기
-      var orientation = window.orientation;
-
-      // 화면 방향에 따라 표 크기 조정
-      if (orientation == 0 || orientation == 180) {
-        // 세로 모드
-        document.querySelector("table").style.width = "100%";
-      } else {
-        // 가로 모드
-        document.querySelector("table").style.width = "100vw";
-      }
-    }
-
-    // 화면 방향 변경 감지
-    window.addEventListener("orientationchange", onOrientationChanged);
-
-    // 각 셀의 클릭 이벤트 핸들러
-    function onCellClick(event) {
-      // 클릭한 셀을 가져오기
-      var cell = event.target;
-
-      // 2열부터의 셀인지 확인
-      if (cell.cellIndex >= 2) {
-        // 1회 터치
-        if (event.detail === 1) {
-          // 텍스트 입력
-          cell.textContent = "";
-          cell.focus();
-        }
-
-        // 2회 연속 터치
-        else if (event.detail === 2) {
-          // 카메라 또는 사진앨범 연결
-          // HTML5 File API 사용
-          var input = document.createElement("input");
-          input.type = "file";
-          input.accept = "image/*";
-          input.onchange = function() {
-            // 이미지를 표에 삽입
-            cell.innerHTML = "";
-            cell.appendChild(document.createElement("img").src = input.files[0].url);
-          };
-          input.click();
-        }
-
-        // 마지막 칸을 3번 연속 터치하면 새로운 행이 추가됨
-        if (cell.cellIndex === 4 && event.detail === 3) {
-          // 새로운 행 추가
-          var newRow = document.querySelector("table").insertRow();
-          for (var i = 0; i < newRow.cells.length; i++) {
-            var newCell = newRow.cells[i];
-            newCell.textContent = "";
-          }
-        }
-      }
-    }
-
-    // 각 셀에 이벤트 리스너 추가
-    var table = document.querySelector("table");
-    for (var i = 2; i < table.rows[0].cells.length; i++) {
-      var cell = table.rows[0].cells[i];
-      cell.addEventListener("click", onCellClick);
-    }
-  </script>
 </body>
 </html>
