@@ -1,4 +1,7 @@
 function addRow() {
+
+  document.write("1234");
+  
   // 표의 tbody 태그에 새로운 줄을 추가합니다.
   var row = document.createElement("tr");
   var number = document.createElement("td");
