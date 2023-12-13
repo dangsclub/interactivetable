@@ -33,7 +33,7 @@ function addRow() {
   row.appendChild(edit);
 
   // tbody 태그에 새로운 줄을 추가합니다.
-  document.querySelector("table tbody").appendChild(row);
+  document.querySelector("td").appendChild(row);
 }
 
  // 화면을 터치하면 addRow() 함수를 실행합니다.
